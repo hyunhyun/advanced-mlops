@@ -17,15 +17,15 @@ with DAG(
     # TODO: 재시도 1회 / 재시도 간격 5분
     # TODO: 실패 시 callback (failure_callback) / 성공 시 callback (success_callback)
     default_args={
-        "owner": "",
-        "depends_on_past": None,
-        "email": "",
+        "owner": "user",
+        "depends_on_past": False,
+        "email": "jeonghyun.lee@lgcns.com",
         "email_on_failure": None,
         "email_on_retry": None,
         "retries": None,
-        "retry_delay": None,
-        "on_failure_callback": None,
-        "on_success_callback": None,
+        "retry_delay": timedelta(minutes=5),
+        "on_failure_callback": failure_callback,
+        "on_success_callback": success_callback,
     },
     description="Simple airflow dag",
     schedule="0 15 * * *",
@@ -35,11 +35,14 @@ with DAG(
 ) as dag:
     task1 = BashOperator(
         task_id="print_date",
+        bash_command="date",
         # TODO: 현재 시간을 출력하는 bash_command 입력
     )
     task2 = BashOperator(
         task_id="sleep",
         depends_on_past=False,
+        bash_command="sleep 5",
+        retries=3,
         # TODO: 5초 sleep하는 bash_command를 입력하고 3회 재시도하도록 설정
     )
 
