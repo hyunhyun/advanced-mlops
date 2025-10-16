@@ -5,14 +5,14 @@
 services:
   continuous_training_pipeline:
     build:
-      context: 
-      dockerfile:
+      context: ../../..
+      dockerfile: pipelines/continous_training/docker/Dockerfile
     image: credit_score_classification:ct-pipeline-latest
     container_name: credit_score_classification_ct_pipeline
     volumes:
-      - 
+      - ${HOME}/airflow/artifacts:/home/codespace/artifacts
     environment:
-      PYTHONPATH: /home/codespace
+      PYTHONPATH: /home/codpespace
       ARTIFACTS_PATH: /home/codespace/artifacts
       FEATURE_STORE_URL: mysql+pymysql://root:root@mariadb:3306/mlops
     command: >

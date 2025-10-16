@@ -11,7 +11,7 @@ local_timezone = pendulum.timezone("Asia/Seoul")
 
 with DAG(
     # TODO: "simple_dag"이라는 이름의 DAG 설정
-    dag_id="",
+    dag_id="simple_dag",
     # TODO: default_args에는 다음 내용이 들어감
     # TODO: "user" 사용자가 소유한 DAG / 본인의 이메일 / 실패 및 재시도 시 이메일 알림 여부
     # TODO: 재시도 1회 / 재시도 간격 5분
